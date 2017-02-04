@@ -38,6 +38,9 @@ gem 'jbuilder', '~> 2.5'
 # Slim is a template language whose goal is reduce the syntax to the essential parts without becoming cryptic.
 gem 'slim-rails'
 
+# This library provides integration of RubyMoney - Money gem with Rails
+gem 'money-rails', '~> 1.8'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
