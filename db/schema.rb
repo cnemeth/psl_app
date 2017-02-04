@@ -10,6 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170203205222) do
 
+  create_table "loans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint   "amount_cents"
+    t.string   "status"
+    t.decimal  "ltv",          precision: 5, scale: 2
+    t.integer  "owner_id"
+    t.integer  "property_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["owner_id"], name: "index_loans_on_owner_id", using: :btree
+    t.index ["property_id"], name: "index_loans_on_property_id", using: :btree
+  end
+
+  create_table "owners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "ssn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint   "value_cents"
+    t.integer  "owner_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["owner_id"], name: "index_properties_on_owner_id", using: :btree
+  end
+
+  add_foreign_key "loans", "owners"
+  add_foreign_key "loans", "properties"
+  add_foreign_key "properties", "owners"
 end
