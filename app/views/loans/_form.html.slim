@@ -1,0 +1,25 @@
+.form-horizontal
+  = form_for @loan, url: loans_path, method: 'post' do |f|
+    - if @loan.errors.any?
+      .bg-danger
+        #error_explanation
+          h2 = "#{pluralize(@loan.errors.count, "error")} prohibited this loan from being saved:"
+          ul
+            - @loan.errors.full_messages.each do |message|
+              li = message
+
+    div class='form-group field'
+      = f.label :property_owner, {class: 'col-sm-2 control-label'}
+      div class='col-sm-2'
+        = f.select :owner_id, options_for_select(@owners.all.map{|o| [o.ssn, o.id]}, f.object.owner_id), {prompt: 'Select owner ssn'}, {class: 'form-control selectpicker', id: 'property-owner-select'}
+    div class='form-group field'
+      = f.label :property_value, {class: 'col-sm-2 control-label'}
+      div class='col-sm-2'
+        = f.select :property_id, options_for_select(@properties.all.map{|p| [p.value, p.id]}, f.object.property_id), {prompt: 'Select property value'}, {class: 'form-control selectpicker', id: 'property-value-select'}
+    div class='form-group field'
+      = f.label :loan_amount, {class: 'col-sm-2 control-label'}
+      div class='col-sm-2'
+        = f.text_field :amount_cents, {class: 'form-control'}
+        = f.hidden_field :status, value: 'pending'
+    div class='col-md-offset-2 actions btn btn-submit'
+      = f.submit

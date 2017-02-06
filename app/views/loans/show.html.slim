@@ -1,0 +1,36 @@
+h1 Loan Details
+
+dl class='dl-horizontal'
+  dt
+    strong
+      | Loan ID:
+  dd
+    = @loan.id
+
+  dt
+    strong Property Owner SSN:
+  dd
+    = @loan.owner.ssn
+
+  dt
+    strong Loan Amount (USD):
+  dd
+    = humanized_money_with_symbol @loan.amount
+
+  dt
+    strong Property Value (USD):
+  dd
+    = humanized_money_with_symbol @loan.property.value
+
+  dt
+    strong LTV (%):
+  dd
+    = @loan.ltv
+
+  dt
+    strong Status:
+  dd
+    = @loan.status
+
+div class='btn btn-default'
+  = link_to 'Back', loans_path

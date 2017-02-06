@@ -1,0 +1,30 @@
+div class='row'
+  h1 Loans
+  - unless @loans.empty?
+    table class='table table-striped'
+      thead
+        tr
+          th Loan ID
+          th Property Owner SSN
+          th Loan Amount (USD)
+          th Property Value (USD)
+          th LTV (%)
+          th Status
+          th
+
+      tbody
+        - @loans.each do |loan|
+          tr
+            td = loan.id
+            td = loan.owner.ssn
+            td = humanized_money_with_symbol loan.amount
+            td = humanized_money_with_symbol loan.property.value
+            td = loan.ltv
+            td = loan.status
+            td = link_to 'Show', loan
+  - else
+    p
+      | There are no loans in the system yet. Please create some.
+
+div class='row btn btn-default'
+  = link_to 'New Loan', new_loan_path
