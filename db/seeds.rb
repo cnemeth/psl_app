@@ -9,6 +9,7 @@
 # Owner
 owner1 = Owner.where(ssn: '123456789').first_or_create!
 owner2 = Owner.where(ssn: '987654321').first_or_create!
+owner3 = Owner.where(ssn: '555667777').first_or_create!
 
 # Property
 property1 = Property.where(owner: owner1).first_or_initialize
@@ -18,6 +19,11 @@ property1.save!
 property2 = Property.where(owner: owner2).first_or_initialize
 property2.value = 20000000
 property2.save!
+
+
+property3 = Property.where(owner: owner3).first_or_initialize
+property3.value = 500000
+property3.save!
 
 # Loan
 loan1 = Loan.where(owner: owner1, property: property1, status: 'pending').first_or_initialize
