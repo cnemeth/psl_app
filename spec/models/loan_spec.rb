@@ -35,28 +35,4 @@ RSpec.describe Loan, type: :model do
   it { should allow_value('99.9').for(:ltv) }
   it { should allow_value(0.999).for(:ltv) }
   it { should_not allow_value(-25.9).for(:ltv) }
-
-  describe 'set_ltv' do
-    let!(:owner) {
-      create(:owner,
-             ssn: '123456789')
-    }
-    let!(:property) {
-      create(:property,
-             value: 100,
-             owner: owner)
-    }
-    let!(:loan) {
-      create(:loan,
-             ltv: 0.0,
-             amount: 30,
-             status: 'pending',
-             owner: owner,
-             property: property)
-    }
-
-    it'sets the ltv' do
-      expect(loan.ltv).to eq 30.0
-    end
-  end
 end

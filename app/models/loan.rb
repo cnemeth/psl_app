@@ -18,8 +18,6 @@ class Loan < ApplicationRecord
 
   STATUS = %w(pending accepted rejected).freeze
 
-  before_create :set_ltv
-
   monetize :amount_cents,
     allow_nil: true,
     numericality: {
@@ -32,10 +30,4 @@ class Loan < ApplicationRecord
     numericality: {
     greater_than_or_equal_to: 0
   }
-
-  private
-
-  def set_ltv
-    self.ltv = self.amount.fractional.to_f / self.property.value.fractional.to_f * 100
-  end
 end
